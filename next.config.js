@@ -2,7 +2,12 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  /* ここにオプション設定を書きます */
+  experimental: {
+    serverActions: true,
+  },
+  images:{
+    domains:['pfeyfjstdqesvztdwvxl.supabase.co']
+  }
 }
 
 module.exports = nextConfig;
