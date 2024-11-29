@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import type { Database } from "../../lib/database.types";
 import { redirect } from "next/navigation";
+import TodoApp from "./components/todoApp";
 
 const Home = async () => {
   const supabase = createServerComponentClient<Database>({
@@ -18,7 +19,8 @@ const Home = async () => {
 
   return (
     <div className="text-center text-xl">
-        <div>Your todo</div>    
+        <div className="mb-5">Your todo</div>
+        <TodoApp />
     </div>
   );
 }
