@@ -7,47 +7,53 @@ import type { Database } from "../../../lib/database.types"
 import TodoList from "@/app/components/todoList"
 
 const TodoApp = () =>{
-    const supabase = createClientComponentClient<Database['public']['Tables']['todos']['Row'][]>()
+    const supabase = createClientComponentClient<Database>()
     const [todos, setTodos] = useState<Database['public']['Tables']['todos']['Row'][]>([])
     const [title, setTitle] = useState<string>("")
     const [message, setMessage] = useState("")
     const { user } = useStore()
     
+    const getUserTodos = async () => {
+        const {data, error :getUserTodosError} = await supabase
+            .from('todos')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('id');
+            if (getUserTodosError) {
+                return { data: null, getUserTodosError };
+            }
+            return { data, getUserTodosError: null };
+        }
+
+    const addTodo = async (title:string) => {
+        const {data, error: addTodoError} = await supabase
+            .from('todos')
+            .insert({
+                title,
+                user_id: user.id,
+            })
+            .select();
+        if(addTodoError){
+            return { data: null, addTodoError };
+        }
+        return { data, addTodoError: null };
+    };    
 
         useEffect(() => {
-            const getUserTodos = async () => {
-                const {data, error: getUserTodosError} = await supabase
-                    .from('todos')
-                    .select('*')
-                    .eq('user_id', user.id)
-                    .order('id');
-
-                if (getUserTodosError) {
+            const getTodos = async () =>{
+                const {data, getUserTodosError} = await getUserTodos()
+                if(getUserTodosError){
                     setMessage("エラーが発生しました" + getUserTodosError.message)
                     return;
                 }
                 setTodos(data || []);
             };
-            getUserTodos();
+            getTodos();    
         }, [user.id]); 
 
         const handleSubmit = useCallback(async (e : React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             if (title === "") return;
-            const addTodo = async (title:string) => {
-                const {data, error: addTodoError} = await supabase
-                    .from('todos')
-                    .insert({
-                        title,
-                        user_id: user.id,
-                    })
-                    .select();
-                if(addTodoError){
-                    setMessage("エラーが発生しました" + addTodoError.message)
-                    return;
-                }
-                return data[0];
-            };
             const updatedTodo = await addTodo(title);
             if (updatedTodo) {
                 setTodos((prevTodos) => [...prevTodos, updatedTodo]);
@@ -71,6 +77,7 @@ const TodoApp = () =>{
                     </form>
                     <TodoList todos={todos} setTodos={setTodos}/>
                 </div>
+                {message && <div className="my-5 text-center text-sm text-red-500">{message}</div>}
             </div>
         )
 }

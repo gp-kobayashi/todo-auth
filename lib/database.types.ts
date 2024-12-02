@@ -1,3 +1,5 @@
+import { UUID } from "crypto"
+
 export type Json =
   | string
   | number
