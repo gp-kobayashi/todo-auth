@@ -144,7 +144,7 @@ const Profile = () => {
                     <div className="text-sm mb-1 font-bold">名前</div>
                     <input
                         type="text"
-                        className="border rounded-mb w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+                        className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
                         placeholder="名前"
                         id="name"
                         {...register("name",{ required: true })}
@@ -157,7 +157,7 @@ const Profile = () => {
                 <div className="mb-5">
                     <div className="text-sm mb-1 font-bold">自己紹介</div>
                     <textarea
-                        className="border rounded-mb w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+                        className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
                         placeholder="自己紹介"
                         id="introduce"
                         {...register("introduce")}
