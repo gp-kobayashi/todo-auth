@@ -50,6 +50,7 @@ const TodoList = (props: Props) =>{
                     </li>
                 ))}
             </ul>
+            {message && <div className="my-5 text-center text-sm text-red-500">{message}</div>}
         </div>
     )
 }
