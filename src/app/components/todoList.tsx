@@ -14,19 +14,20 @@ const TodoList = (props: Props) =>{
     const [message, setMessage] = useState("")
     const { todos, setTodos } = props
 
+    const deleteTodo =(async(id:number) =>{
+        const { data, error: deleteTodoError } = await supabase
+            .from("todos")
+            .delete()
+            .eq('id', id)
+            .select()
+        if(deleteTodoError){
+            setMessage("エラーが発生しました" + deleteTodoError.message)
+            
+        };
+        return data;
+    });
+
     const handleDelete = useCallback(async(id:number) =>{
-        const deleteTodo =(async(id:number) =>{
-            const { data, error: deleteTodoError } = await supabase
-                .from("todos")
-                .delete()
-                .eq('id', id)
-                .select()
-            if(deleteTodoError){
-                setMessage("エラーが発生しました" + deleteTodoError.message)
-                
-            };
-            return data;
-        });
         const updatedTodo = await deleteTodo(id);
         if(updatedTodo){
             setTodos((prevTodos) => prevTodos.filter(todos => todos.id !== id));

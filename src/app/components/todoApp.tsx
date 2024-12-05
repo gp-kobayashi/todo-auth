@@ -34,9 +34,10 @@ const TodoApp = () =>{
             })
             .select();
         if(addTodoError){
-            return { data: null, addTodoError };
+            setMessage("エラーが発生しました" + addTodoError.message)
+            return;
         }
-        return { data, addTodoError: null };
+        return data[0];
     };    
 
         useEffect(() => {
@@ -55,6 +56,7 @@ const TodoApp = () =>{
             e.preventDefault();
             if (title === "") return;
             const updatedTodo = await addTodo(title);
+
             if (updatedTodo) {
                 setTodos((prevTodos) => [...prevTodos, updatedTodo]);
             }
