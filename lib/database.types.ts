@@ -40,21 +40,21 @@ export type Database = {
         Row: {
           avatar_url: string | null
           email: string
-          id: string
+          id: UUID
           introduce: string | null
           name: string | null
         }
         Insert: {
           avatar_url?: string | null
           email: string
-          id: string
+          id: UUID
           introduce?: string | null
           name?: string | null
         }
         Update: {
           avatar_url?: string | null
           email?: string
-          id?: string
+          id?:UUID
           introduce?: string | null
           name?: string | null
         }
@@ -63,13 +63,13 @@ export type Database = {
       todos: {
         Row: {
           id: number
-          user_id:string
+          user_id:UUID
           title: string
           completed: boolean
         }
         Insert: {
           id?: number
-          user_id:string
+          user_id:UUID
           title: string
           completed?: boolean
         }
