@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react"
 import useStore from "../../../store"
 import type { Database } from "../../../lib/database.types"
 import TodoList from "@/app/components/todoList"
+import { redirect } from "next/navigation"
 
 const TodoApp = () =>{
     const supabase = createClientComponentClient<Database>()
@@ -41,6 +42,7 @@ const TodoApp = () =>{
     };    
 
         useEffect(() => {
+            if (!user.id) return;
             const getTodos = async () =>{
                 const {data, getUserTodosError} = await getUserTodos()
                 if(getUserTodosError){
