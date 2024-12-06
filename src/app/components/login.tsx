@@ -62,22 +62,22 @@ const Login = () => {
                 {/* メールアドレス */}
                 <div className="mb-3">
                     <input
-                     type="email"
-                     className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
-                     placeholder="メールアドレス"
-                     id="email"
-                     {...register("email", { required: true })}
+                        type="email"
+                        className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+                        placeholder="メールアドレス"
+                        id="email"
+                        {...register("email", { required: true })}
                     />
                     <div className="my-3 text-center text-sm text-red-500">{errors.email?.message}</div>    
                 </div>
                 {/* パスワード */}
                 <div className="mb-5">
                     <input
-                     type="password"
-                     className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
-                     placeholder="パスワード"
-                     id="password"
-                     {...register("password", { required: true })}
+                        type="password"
+                        className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+                        placeholder="パスワード"
+                        id="password"
+                        {...register("password", { required: true })}
                     />
                     <div className="my-3 text-center text-sm text-red-500">{errors.password?.message}</div>    
                 </div>
@@ -105,7 +105,6 @@ const Login = () => {
                 <Link href="/auth/signup" className="text-gray-500 font-bold">
                     アカウントを作成する
                 </Link>
-
             </div>
         </div>
     )

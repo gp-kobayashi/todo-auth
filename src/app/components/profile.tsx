@@ -179,7 +179,6 @@ const Profile = () => {
                     )}
                 </div>
             </form>
-
             {message && <div className="my-5 text-center text-red-500 mb-5">{message}</div>}
         </div>
     )
