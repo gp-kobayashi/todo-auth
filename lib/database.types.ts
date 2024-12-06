@@ -1,3 +1,5 @@
+import { UUID } from "crypto"
+
 export type Json =
   | string
   | number
@@ -52,9 +54,28 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           email?: string
-          id?: string
+          id?:string
           introduce?: string | null
           name?: string | null
+        }
+        Relationships: []
+      }
+      todos: {
+        Row: {
+          id: number
+          user_id:string
+          title: string
+          completed: boolean
+        }
+        Insert: {
+          id?: number
+          user_id:string
+          title: string
+          completed?: boolean
+        }
+        Update: {
+          title?: string
+          completed?: boolean
         }
         Relationships: []
       }
