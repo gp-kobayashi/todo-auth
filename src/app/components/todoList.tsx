@@ -2,7 +2,7 @@
 
 import { useCallback,useState,SetStateAction } from "react";
 import type { Database } from "../../../lib/database.types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { deleteTodo } from "../utils/suapbase_function";
 
 type Props = {
     todos:Database['public']['Tables']['todos']['Row'][];
@@ -10,22 +10,8 @@ type Props = {
   }
 
 const TodoList = (props: Props) =>{
-    const supabase = createClientComponentClient<Database>()
     const [message, setMessage] = useState("")
     const { todos, setTodos } = props
-
-    const deleteTodo =(async(id:number) =>{
-        const { data, error: deleteTodoError } = await supabase
-            .from("todos")
-            .delete()
-            .eq('id', id)
-            .select()
-        if(deleteTodoError){
-            setMessage("エラーが発生しました" + deleteTodoError.message)
-            
-        };
-        return data;
-    });
 
     const handleDelete = useCallback(async(id:number) =>{
         const updatedTodo = await deleteTodo(id);

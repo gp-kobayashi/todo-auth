@@ -1,45 +1,16 @@
 'use client'
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useState, useEffect, useCallback } from "react"
 import useStore from "../../../store"
 import type { Database } from "../../../lib/database.types"
 import TodoList from "@/app/components/todoList"
-import { redirect } from "next/navigation"
+import { getUserTodos,addTodo } from "../utils/suapbase_function"
 
 const TodoApp = () =>{
-    const supabase = createClientComponentClient<Database>()
     const [todos, setTodos] = useState<Database['public']['Tables']['todos']['Row'][]>([])
     const [title, setTitle] = useState<string>("")
     const [message, setMessage] = useState("")
     const { user } = useStore()
-    
-    const getUserTodos = async () => {
-        const {data, error :getUserTodosError} = await supabase
-            .from('todos')
-            .select('*')
-            .eq('user_id', user.id)
-            .order('id');
-            if (getUserTodosError) {
-                return { data: null, getUserTodosError };
-            }
-            return { data, getUserTodosError: null };
-        }
-
-    const addTodo = async (title:string) => {
-        const {data, error: addTodoError} = await supabase
-            .from('todos')
-            .insert({
-                title,
-                user_id: user.id,
-            })
-            .select();
-        if(addTodoError){
-            setMessage("エラーが発生しました" + addTodoError.message)
-            return;
-        }
-        return data[0];
-    };    
 
         useEffect(() => {
             if (!user.id) return;
