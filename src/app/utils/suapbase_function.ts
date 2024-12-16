@@ -1,14 +1,11 @@
-import useStore from "../../../store";
 import { supabase } from "./supabase";
 
-const { user } = useStore()
 
-
-export const getUserTodos = async () => {
+export const getUserTodos = async (userId:string) => {
     const {data, error :getUserTodosError} = await supabase
         .from('todos')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', userId)
         .order('id');
         if (getUserTodosError) {
             return { data: null, getUserTodosError };
@@ -16,12 +13,12 @@ export const getUserTodos = async () => {
         return { data, getUserTodosError: null };
     }
 
-export const addTodo = async (title:string) => {
+export const addTodo = async (title:string , userId:string) => {
     const {data, error: addTodoError} = await supabase
         .from('todos')
         .insert({
             title,
-            user_id: user.id,
+            user_id: userId
         })
         .select();
     if(addTodoError){
@@ -30,7 +27,7 @@ export const addTodo = async (title:string) => {
     return data[0];
 };
 
-export const deleteTodo =(async(id:number) =>{
+export const deleteTodo = async(id:number) =>{
     const { data, error: deleteTodoError } = await supabase
         .from("todos")
         .delete()
@@ -40,4 +37,4 @@ export const deleteTodo =(async(id:number) =>{
         throw new Error("削除のエラー"); 
     };
     return data;
-});
+};

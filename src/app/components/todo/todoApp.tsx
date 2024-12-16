@@ -1,21 +1,22 @@
 'use client'
 
 import { useState, useEffect, useCallback } from "react"
-import useStore from "../../../store"
-import type { Database } from "../../../lib/database.types"
-import TodoList from "@/app/components/todoList"
-import { getUserTodos,addTodo } from "../utils/suapbase_function"
+import useStore from "../../../../store"
+import type { Database } from "../../../../lib/database.types"
+import TodoList from "@/app/components/todo/todoList"
+import { getUserTodos,addTodo } from "../../utils/suapbase_function"
 
 const TodoApp = () =>{
     const [todos, setTodos] = useState<Database['public']['Tables']['todos']['Row'][]>([])
     const [title, setTitle] = useState<string>("")
     const [message, setMessage] = useState("")
     const { user } = useStore()
+    const userId = user.id
 
         useEffect(() => {
             if (!user.id) return;
             const getTodos = async () =>{
-                const {data, getUserTodosError} = await getUserTodos()
+                const {data, getUserTodosError} = await getUserTodos(userId)
                 if(getUserTodosError){
                     setMessage("エラーが発生しました" + getUserTodosError.message)
                     return;
@@ -28,7 +29,7 @@ const TodoApp = () =>{
         const handleSubmit = useCallback(async (e : React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             if (title === "") return;
-            const updatedTodo = await addTodo(title);
+            const updatedTodo = await addTodo(title, userId);
 
             if (updatedTodo) {
                 setTodos((prevTodos) => [...prevTodos, updatedTodo]);

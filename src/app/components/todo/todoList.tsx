@@ -1,8 +1,8 @@
 'use client'
 
 import { useCallback,useState,SetStateAction } from "react";
-import type { Database } from "../../../lib/database.types";
-import { deleteTodo } from "../utils/suapbase_function";
+import type { Database } from "../../../../lib/database.types";
+import { deleteTodo } from "../../utils/suapbase_function";
 
 type Props = {
     todos:Database['public']['Tables']['todos']['Row'][];
