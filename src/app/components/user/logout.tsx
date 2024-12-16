@@ -3,8 +3,8 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useRouter } from "next/navigation"
 import { FormEvent, useState } from "react"
-import Loading from "../loading"
-import type { Database } from "../../../lib/database.types"
+import Loading from "../../loading"
+import type { Database } from "../../../../lib/database.types"
 
 const Logout = () => {
     const router = useRouter()
