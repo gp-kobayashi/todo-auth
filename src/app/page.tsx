@@ -5,24 +5,24 @@ import { redirect } from "next/navigation";
 import TodoApp from "./components/todo/todoApp";
 
 const Home = async () => {
-	const supabase = createServerComponentClient<Database>({
-		cookies,
-	})
+  const supabase = createServerComponentClient<Database>({
+    cookies,
+  });
 
-	const{
-		data:{ session },
-	} = await supabase.auth.getSession()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-	if(!session){
-    	redirect("/auth/login")
-  	}
+  if (!session) {
+    redirect("/auth/login");
+  }
 
-	return (
-		<div className="text-center text-xl">
-        	<div className="mb-5">Your todo</div>
-        	<TodoApp />
-    	</div>
-	);
-}
+  return (
+    <div className="text-center text-xl">
+      <div className="mb-5">Your todo</div>
+      <TodoApp />
+    </div>
+  );
+};
 
-export default  Home
+export default Home;
