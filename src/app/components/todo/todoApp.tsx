@@ -18,9 +18,9 @@ const TodoApp = () => {
   useEffect(() => {
     if (!user.id) return;
     const getTodos = async () => {
-      const { data, getUserTodosError } = await getUserTodos(userId);
-      if (getUserTodosError) {
-        setMessage("エラーが発生しました" + getUserTodosError.message);
+      const { data, error } = await getUserTodos(userId);
+      if (error) {
+        setMessage("エラーが発生しました" + error.message);
         return;
       }
       setTodos(data || []);
