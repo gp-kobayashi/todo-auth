@@ -32,12 +32,19 @@ const TodoApp = () => {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (title === "") return;
-      const updatedTodo = await addTodo(title, userId);
+      const { data: updatedTodo, error } = await addTodo(title, userId);
+
+      if (error) {
+        setMessage("エラーが発生しました。");
+        return;
+      }
 
       if (updatedTodo) {
         setTodos((prevTodos) => [...prevTodos, updatedTodo]);
       }
+
       setTitle("");
+      setMessage("");
     },
     [title, user.id],
   );

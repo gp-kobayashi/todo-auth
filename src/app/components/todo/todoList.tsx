@@ -17,10 +17,16 @@ const TodoList = (props: Props) => {
 
   const handleDelete = useCallback(
     async (id: number) => {
-      const updatedTodo = await deleteTodo(id);
+      const { data: updatedTodo, error } = await deleteTodo(id);
+      if (error) {
+        setMessage("エラーが発生しました。");
+        return;
+      }
+  
       if (updatedTodo) {
         setTodos((prevTodos) => prevTodos.filter((todos) => todos.id !== id));
       }
+      setMessage("");
     },
     [setTodos],
   );

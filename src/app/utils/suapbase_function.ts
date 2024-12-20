@@ -3,12 +3,12 @@ import type { Database } from "../../../lib/database.types";
 
 type Todo = Database["public"]["Tables"]["todos"]["Row"]
 
-interface userTodos {
-  data: Todo[] | null;
+type SupabaseResponse<T> = {
+  data: T | null;
   error: Error | null;
-}
+};
 
-export const getUserTodos = async (userId: string) : Promise<userTodos>=> {
+export const getUserTodos = async (userId: string) : Promise<SupabaseResponse<Todo[]>>=> {
   const { data, error } = await supabase
     .from("todos")
     .select("*")
@@ -20,28 +20,24 @@ export const getUserTodos = async (userId: string) : Promise<userTodos>=> {
   return { data, error: null };
 };
 
-export const addTodo = async (title: string, userId: string): Promise<Todo> => {
+export const addTodo = async (title: string, userId: string): Promise<SupabaseResponse<Todo>> => {
   const { data, error } = await supabase
     .from("todos")
     .insert({
       title,
       user_id: userId,
     })
-    .select();
-  if (error) {
-    throw new Error("データ追加のエラー");
-  }
-  return data[0];
+    .select()
+    .single();
+    return { data, error }; 
 };
 
-export const deleteTodo = async (id: number): Promise<Todo[]>=> {
+export const deleteTodo = async (id: number): Promise<SupabaseResponse<Todo[]>>=> {
   const { data, error} = await supabase
     .from("todos")
     .delete()
     .eq("id", id)
     .select();
-  if (error) {
-    throw new Error("削除のエラー");
-  }
-  return data;
+
+  return { data, error };
 };
