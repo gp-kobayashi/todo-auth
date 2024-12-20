@@ -2,7 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import ResetPassword from "@/app/components/user/reset-password";
-import type { Database } from "../../../../lib/database.types";
+import type { Database } from "lib/database.types";
 
 const ResetPasswordPage = async () => {
   const supabase = createServerComponentClient<Database>({

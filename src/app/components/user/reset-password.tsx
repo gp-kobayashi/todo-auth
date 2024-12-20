@@ -5,9 +5,9 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Loading from "../../loading";
+import Loading from "@/app/loading";
 import * as z from "zod";
-import type { Database } from "../../../../lib/database.types";
+import type { Database } from "lib/database.types";
 type Schema = z.infer<typeof schema>;
 
 const schema = z.object({

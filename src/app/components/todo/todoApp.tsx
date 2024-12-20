@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import useStore from "../../../../store";
-import type { Database } from "../../../../lib/database.types";
+import useStore from "store";
+import type { Database } from "lib/database.types";
 import TodoList from "@/app/components/todo/todoList";
-import { getUserTodos, addTodo } from "../../utils/suapbase_function";
+import { getUserTodos, addTodo } from "@/app/utils/suapbase_function";
 
 const TodoApp = () => {
   const [todos, setTodos] = useState<

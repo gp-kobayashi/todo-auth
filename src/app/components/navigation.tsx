@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import type { Session } from "@supabase/auth-helpers-nextjs";
-import useStore from "../../../store";
+import useStore from "store";
 import Image from "next/image";
 import { useEffect } from "react";
-import type { Database } from "../../../lib/database.types";
+import type { Database } from "lib/database.types";
 type ProfileType = Database["public"]["Tables"]["profiles"]["Row"];
 
 const Navigation = ({

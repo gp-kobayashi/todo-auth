@@ -1,5 +1,5 @@
-import { supabase } from "./supabase";
-import type { Database } from "../../../lib/database.types";
+import { supabase } from "@/app/utils/supabase";
+import type { Database } from "lib/database.types";
 
 type Todo = Database["public"]["Tables"]["todos"]["Row"]
 

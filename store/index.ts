@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Database } from "../lib/database.types";
+import type { Database } from "lib/database.types";
 type ProfileType = Database["public"]["Tables"]["profiles"]["Row"];
 
 type StateType = {

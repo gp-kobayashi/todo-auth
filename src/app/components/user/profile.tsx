@@ -7,10 +7,10 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import Loading from "../../loading";
+import Loading from "@/app/loading";
 import * as z from "zod";
-import type { Database } from "../../../../lib/database.types";
-import useStore from "../../../../store";
+import type { Database } from "lib/database.types";
+import useStore from "store";
 type Schema = z.infer<typeof schema>;
 
 const schema = z.object({
