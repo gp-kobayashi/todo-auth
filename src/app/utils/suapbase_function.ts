@@ -1,14 +1,16 @@
 import { supabase } from "@/app/utils/supabase";
 import type { Database } from "lib/database.types";
 
-type Todo = Database["public"]["Tables"]["todos"]["Row"]
+type Todo = Database["public"]["Tables"]["todos"]["Row"];
 
 type SupabaseResponse<T> = {
   data: T | null;
   error: Error | null;
 };
 
-export const getUserTodos = async (userId: string) : Promise<SupabaseResponse<Todo[]>>=> {
+export const getUserTodos = async (
+  userId: string,
+): Promise<SupabaseResponse<Todo[]>> => {
   const { data, error } = await supabase
     .from("todos")
     .select("*")
@@ -20,7 +22,10 @@ export const getUserTodos = async (userId: string) : Promise<SupabaseResponse<To
   return { data, error: null };
 };
 
-export const addTodo = async (title: string, userId: string): Promise<SupabaseResponse<Todo>> => {
+export const addTodo = async (
+  title: string,
+  userId: string,
+): Promise<SupabaseResponse<Todo>> => {
   const { data, error } = await supabase
     .from("todos")
     .insert({
@@ -29,15 +34,16 @@ export const addTodo = async (title: string, userId: string): Promise<SupabaseRe
     })
     .select()
     .single();
-    return { data, error }; 
+  return { data, error };
 };
 
-export const deleteTodo = async (id: number): Promise<SupabaseResponse<Todo[]>>=> {
-  const { data, error} = await supabase
+export const deleteTodo = async (
+  id: number,
+): Promise<SupabaseResponse<Todo[]>> => {
+  const { data, error } = await supabase
     .from("todos")
     .delete()
     .eq("id", id)
     .select();
-
   return { data, error };
 };
