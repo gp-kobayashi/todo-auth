@@ -39,11 +39,12 @@ export const addTodo = async (
 
 export const deleteTodo = async (
   id: number,
-): Promise<SupabaseResponse<Todo[]>> => {
+): Promise<SupabaseResponse<number>> => {
   const { data, error } = await supabase
     .from("todos")
     .delete()
     .eq("id", id)
-    .select();
-  return { data, error };
+    .select("id")
+    .single();
+  return { data: data?.id, error };
 };
