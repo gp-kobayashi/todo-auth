@@ -26,7 +26,6 @@ const TodoList = (props: Props) => {
         setTodos((prevTodos) =>
           prevTodos.filter((todo) => todo.id !== deleteId),
         );
-        console.log(deleteId);
       }
       setMessage("");
     },
